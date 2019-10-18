@@ -20,6 +20,7 @@
 		01129D8B23587B9B00473D1F /* SAVideoFeedModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 01129D8A23587B9B00473D1F /* SAVideoFeedModel.m */; };
 		01129D8D2358A5BF00473D1F /* list.json in Resources */ = {isa = PBXBuildFile; fileRef = 01129D8C2358A5BE00473D1F /* list.json */; };
 		01129D902358A94300473D1F /* SAVideoInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 01129D8F2358A94300473D1F /* SAVideoInfoModel.m */; };
+		01129D932359710100473D1F /* SAClipPlayerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 01129D922359710100473D1F /* SAClipPlayerController.m */; };
 		2F1391FEFCB6FA5AB0F819E7 /* libPods-SAClipsplayer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CDEC7908C24E15F53A67D761 /* libPods-SAClipsplayer.a */; };
 /* End PBXBuildFile section */
 
@@ -49,6 +50,8 @@
 		01129D8C2358A5BE00473D1F /* list.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = list.json; sourceTree = "<group>"; };
 		01129D8E2358A94300473D1F /* SAVideoInfoModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SAVideoInfoModel.h; sourceTree = "<group>"; };
 		01129D8F2358A94300473D1F /* SAVideoInfoModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SAVideoInfoModel.m; sourceTree = "<group>"; };
+		01129D912359710100473D1F /* SAClipPlayerController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SAClipPlayerController.h; sourceTree = "<group>"; };
+		01129D922359710100473D1F /* SAClipPlayerController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SAClipPlayerController.m; sourceTree = "<group>"; };
 		4EA1FA0F6B775E5BC33D3974 /* Pods-SAClipsplayer.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SAClipsplayer.release.xcconfig"; path = "Pods/Target Support Files/Pods-SAClipsplayer/Pods-SAClipsplayer.release.xcconfig"; sourceTree = "<group>"; };
 		6A1AF2B57E123FF1EE825A00 /* Pods-SAClipsplayer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SAClipsplayer.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SAClipsplayer/Pods-SAClipsplayer.debug.xcconfig"; sourceTree = "<group>"; };
 		CDEC7908C24E15F53A67D761 /* libPods-SAClipsplayer.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SAClipsplayer.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -172,6 +175,8 @@
 		01129D7723585F2C00473D1F /* SAClipsVideoPlayer */ = {
 			isa = PBXGroup;
 			children = (
+				01129D912359710100473D1F /* SAClipPlayerController.h */,
+				01129D922359710100473D1F /* SAClipPlayerController.m */,
 			);
 			path = SAClipsVideoPlayer;
 			sourceTree = "<group>";
@@ -326,6 +331,7 @@
 				01129D8823587A3800473D1F /* SAKuaishouListCollectionViewCell.m in Sources */,
 				01129D8B23587B9B00473D1F /* SAVideoFeedModel.m in Sources */,
 				01129D67235854D400473D1F /* main.m in Sources */,
+				01129D932359710100473D1F /* SAClipPlayerController.m in Sources */,
 				01129D59235854D000473D1F /* AppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
