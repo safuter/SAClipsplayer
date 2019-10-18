@@ -2,5 +2,5 @@ platform :ios, '10.0'
 target 'SAClipsplayer' do
 
 pod 'SDWebImage' , '~> 4.3.3'
-
+pod 'MJExtension' , '~> 3.0.13'
 end

@@ -7,6 +7,7 @@
 //
 
 #import "SARootViewController.h"
+#import "SAKuaiShouListViewController.h"
 
 @interface SARootViewController ()
 
@@ -20,6 +21,8 @@ NSString *strFromSelector(SEL sel) {
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    self.view.backgroundColor = [UIColor whiteColor];
     
     NSArray *titles = @[@"快手样式", @"抖音样式", @"头条样式"];
     
@@ -45,7 +48,8 @@ NSString *strFromSelector(SEL sel) {
 
 #pragma mark - Actions
 - (void)kuaishouStyle {
-    
+    SAKuaiShouListViewController *kuaishouListVC = [[SAKuaiShouListViewController alloc] init];
+    [self.navigationController pushViewController:kuaishouListVC animated:YES];
 }
 
 - (void)douyinStyle {

@@ -12,5 +12,6 @@
 #import "UIColor+Theme.h"
 #import "DefineHeader.h"
 #import <UIImageView+WebCache.h>
+#import <MJExtension/MJExtension.h>
 
 #endif /* PrefixHeader_pch */
