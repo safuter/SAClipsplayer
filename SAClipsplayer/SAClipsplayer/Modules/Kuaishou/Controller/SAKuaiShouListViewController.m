@@ -9,6 +9,8 @@
 #import "SAKuaiShouListViewController.h"
 #import "SAKuaishouListCollectionViewCell.h"
 
+#import "SAClipPlayerController.h"
+
 NSString * const KuaiShouCollectionListCellID = @"KuaiShouCollectionListCellID";
 
 @interface SAKuaiShouListViewController () <UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
@@ -49,7 +51,14 @@ NSString * const KuaiShouCollectionListCellID = @"KuaiShouCollectionListCellID";
 
 #pragma mark - UICollectionViewDelegate
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    SAVideoFeedModel *model = [self.dataList objectAtIndex:indexPath.row];
     
+    SAClipPlayerController *playerVC = [[SAClipPlayerController alloc] init];
+    playerVC.url = model.video.videourl;
+    playerVC.corverImgUrl = model.video.firstpic;
+    [self presentViewController:playerVC animated:YES completion:^{
+        
+    }];
 }
 
 #pragma mark - UICollectionViewDataSource

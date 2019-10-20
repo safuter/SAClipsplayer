@@ -16,4 +16,8 @@
              };
 }
 
+- (SAVideoInfoModel *)video {
+    return self.videos.firstObject;
+}
+
 @end

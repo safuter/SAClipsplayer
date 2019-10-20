@@ -21,6 +21,9 @@
 		01129D8D2358A5BF00473D1F /* list.json in Resources */ = {isa = PBXBuildFile; fileRef = 01129D8C2358A5BE00473D1F /* list.json */; };
 		01129D902358A94300473D1F /* SAVideoInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 01129D8F2358A94300473D1F /* SAVideoInfoModel.m */; };
 		01129D932359710100473D1F /* SAClipPlayerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 01129D922359710100473D1F /* SAClipPlayerController.m */; };
+		01129D9B2359ACE500473D1F /* SAClipPlayerScreenView.m in Sources */ = {isa = PBXBuildFile; fileRef = 01129D9A2359ACE400473D1F /* SAClipPlayerScreenView.m */; };
+		01129D9E2359BC2200473D1F /* SAPlayerViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 01129D9D2359BC2200473D1F /* SAPlayerViewModel.m */; };
+		01129DA1235C1ADE00473D1F /* SAClipPlayerToftView.m in Sources */ = {isa = PBXBuildFile; fileRef = 01129DA0235C1ADE00473D1F /* SAClipPlayerToftView.m */; };
 		2F1391FEFCB6FA5AB0F819E7 /* libPods-SAClipsplayer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CDEC7908C24E15F53A67D761 /* libPods-SAClipsplayer.a */; };
 /* End PBXBuildFile section */
 
@@ -52,6 +55,12 @@
 		01129D8F2358A94300473D1F /* SAVideoInfoModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SAVideoInfoModel.m; sourceTree = "<group>"; };
 		01129D912359710100473D1F /* SAClipPlayerController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SAClipPlayerController.h; sourceTree = "<group>"; };
 		01129D922359710100473D1F /* SAClipPlayerController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SAClipPlayerController.m; sourceTree = "<group>"; };
+		01129D992359ACE400473D1F /* SAClipPlayerScreenView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SAClipPlayerScreenView.h; sourceTree = "<group>"; };
+		01129D9A2359ACE400473D1F /* SAClipPlayerScreenView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SAClipPlayerScreenView.m; sourceTree = "<group>"; };
+		01129D9C2359BC2200473D1F /* SAPlayerViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SAPlayerViewModel.h; sourceTree = "<group>"; };
+		01129D9D2359BC2200473D1F /* SAPlayerViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SAPlayerViewModel.m; sourceTree = "<group>"; };
+		01129D9F235C1ADE00473D1F /* SAClipPlayerToftView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SAClipPlayerToftView.h; sourceTree = "<group>"; };
+		01129DA0235C1ADE00473D1F /* SAClipPlayerToftView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SAClipPlayerToftView.m; sourceTree = "<group>"; };
 		4EA1FA0F6B775E5BC33D3974 /* Pods-SAClipsplayer.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SAClipsplayer.release.xcconfig"; path = "Pods/Target Support Files/Pods-SAClipsplayer/Pods-SAClipsplayer.release.xcconfig"; sourceTree = "<group>"; };
 		6A1AF2B57E123FF1EE825A00 /* Pods-SAClipsplayer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SAClipsplayer.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SAClipsplayer/Pods-SAClipsplayer.debug.xcconfig"; sourceTree = "<group>"; };
 		CDEC7908C24E15F53A67D761 /* libPods-SAClipsplayer.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SAClipsplayer.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -175,6 +184,11 @@
 		01129D7723585F2C00473D1F /* SAClipsVideoPlayer */ = {
 			isa = PBXGroup;
 			children = (
+				01129D982359A7F600473D1F /* Controller */,
+				01129D962359A7F600473D1F /* Manager */,
+				01129D952359A7F600473D1F /* Model */,
+				01129D972359A7F600473D1F /* View */,
+				01129D942359A7F600473D1F /* ViewModel */,
 				01129D912359710100473D1F /* SAClipPlayerController.h */,
 				01129D922359710100473D1F /* SAClipPlayerController.m */,
 			);
@@ -206,6 +220,47 @@
 				01129D82235876B500473D1F /* DefineHeader.h */,
 			);
 			path = Utility;
+			sourceTree = "<group>";
+		};
+		01129D942359A7F600473D1F /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				01129D9C2359BC2200473D1F /* SAPlayerViewModel.h */,
+				01129D9D2359BC2200473D1F /* SAPlayerViewModel.m */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		01129D952359A7F600473D1F /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		01129D962359A7F600473D1F /* Manager */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Manager;
+			sourceTree = "<group>";
+		};
+		01129D972359A7F600473D1F /* View */ = {
+			isa = PBXGroup;
+			children = (
+				01129D992359ACE400473D1F /* SAClipPlayerScreenView.h */,
+				01129D9A2359ACE400473D1F /* SAClipPlayerScreenView.m */,
+				01129D9F235C1ADE00473D1F /* SAClipPlayerToftView.h */,
+				01129DA0235C1ADE00473D1F /* SAClipPlayerToftView.m */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		01129D982359A7F600473D1F /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Controller;
 			sourceTree = "<group>";
 		};
 		3A35CA496F8CC4DFFE67E878 /* Frameworks */ = {
@@ -331,8 +386,11 @@
 				01129D8823587A3800473D1F /* SAKuaishouListCollectionViewCell.m in Sources */,
 				01129D8B23587B9B00473D1F /* SAVideoFeedModel.m in Sources */,
 				01129D67235854D400473D1F /* main.m in Sources */,
+				01129D9B2359ACE500473D1F /* SAClipPlayerScreenView.m in Sources */,
 				01129D932359710100473D1F /* SAClipPlayerController.m in Sources */,
 				01129D59235854D000473D1F /* AppDelegate.m in Sources */,
+				01129D9E2359BC2200473D1F /* SAPlayerViewModel.m in Sources */,
+				01129DA1235C1ADE00473D1F /* SAClipPlayerToftView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
