@@ -53,11 +53,11 @@ NSString *strFromSelector(SEL sel) {
 }
 
 - (void)douyinStyle {
-    
+    [self.view makeToast:@"coming soon"];
 }
 
 - (void)toutiaoStyle {
-    
+    [self.view makeToast:@"coming soon"];
 }
 
 

@@ -40,8 +40,6 @@ NSString * const KuaiShouCollectionListCellID = @"KuaiShouCollectionListCellID";
 
 // 模仿网络请求
 - (void)requestList {
-    
-
     NSData *jsonData = [NSData dataWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"list.json" ofType:nil]];
     NSDictionary *jsonDict = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingMutableLeaves error:nil];
     self.dataList = [SAVideoFeedModel mj_objectArrayWithKeyValuesArray:[jsonDict objectForKey:@"data"]];

@@ -13,5 +13,6 @@
 #import "DefineHeader.h"
 #import <UIImageView+WebCache.h>
 #import <MJExtension/MJExtension.h>
+#import "Toast+UIView.h"
 
 #endif /* PrefixHeader_pch */

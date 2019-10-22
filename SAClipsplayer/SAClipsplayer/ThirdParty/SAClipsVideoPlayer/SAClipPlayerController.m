@@ -29,7 +29,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+
     _playerViewModel = [[SAPlayerViewModel alloc] initWithUrlStr:self.url];
     
     _toftView = [[SAClipPlayerToftView alloc] init];
