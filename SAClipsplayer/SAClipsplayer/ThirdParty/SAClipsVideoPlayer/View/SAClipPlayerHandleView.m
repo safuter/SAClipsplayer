@@ -52,11 +52,6 @@
 static NSInteger blockIndex = 0;
 - (void)showOutControlView {
     
-    if (self.hideOutControlViewBlock) {
-        dispatch_block_cancel(self.hideOutControlViewBlock);
-        self.hideOutControlViewBlock = nil;
-    }
-    
     [self.hideControlViewTasksArray enumerateObjectsUsingBlock:^(dispatch_block_t  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         dispatch_block_cancel(obj);
     }];
@@ -69,7 +64,6 @@ static NSInteger blockIndex = 0;
     
     [self.hideControlViewTasksArray addObject:block];
     
-    
     [self cancelBlock:blockIndex - 1];
     
     [UIView animateWithDuration:0.3 animations:^{
@@ -81,9 +75,11 @@ static NSInteger blockIndex = 0;
 
 - (void)cancelBlock:(NSInteger)index {
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        dispatch_block_t block = [self.hideControlViewTasksArray objectAtIndex:index];
-        if (block) {
-            block();
+        if (self.hideControlViewTasksArray.count > index) {
+            dispatch_block_t block = [self.hideControlViewTasksArray objectAtIndex:index];
+            if (block) {
+                block();
+            }
         }
     });
 }
