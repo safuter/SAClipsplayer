@@ -20,4 +20,6 @@
 #define Bottom_Space (IPhoneX ? 34.0f : 0.0f)
 #define KPTabBar_Height  (49.0f + Bottom_Space)
 
+#define  weak_block_self  __weak typeof(self) weakSelf = self
+
 #endif /* DefineHeader_h */

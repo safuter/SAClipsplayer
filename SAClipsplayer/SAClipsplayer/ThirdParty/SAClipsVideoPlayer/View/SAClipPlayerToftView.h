@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import <AVFoundation/AVFoundation.h>
+#import "SAClipPlayerHandleView.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -16,6 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong) NSString *corverImageUrl;
 @property (nonatomic, strong) UIImageView *corverImageView;
+@property (nonatomic, strong, nullable) SAClipPlayerHandleView *handleView;
 @end
 
 NS_ASSUME_NONNULL_END

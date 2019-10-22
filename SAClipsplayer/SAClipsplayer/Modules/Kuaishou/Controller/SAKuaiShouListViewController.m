@@ -53,9 +53,7 @@ NSString * const KuaiShouCollectionListCellID = @"KuaiShouCollectionListCellID";
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     SAVideoFeedModel *model = [self.dataList objectAtIndex:indexPath.row];
     
-    SAClipPlayerController *playerVC = [[SAClipPlayerController alloc] init];
-    playerVC.url = model.video.videourl;
-    playerVC.corverImgUrl = model.video.firstpic;
+    SAClipPlayerController *playerVC = [[SAClipPlayerController alloc] initWithPlayUrlStr:model.video.videourl corverUrlStr:model.video.firstpic];
     [self presentViewController:playerVC animated:YES completion:^{
         
     }];

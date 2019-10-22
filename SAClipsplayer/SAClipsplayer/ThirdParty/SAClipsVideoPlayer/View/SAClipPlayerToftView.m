@@ -11,6 +11,7 @@
 
 @interface SAClipPlayerToftView()
 @property (nonatomic, strong) SAClipPlayerScreenView *playerScreenView;
+
 @end
 
 @implementation SAClipPlayerToftView
@@ -40,11 +41,21 @@
     [super layoutSubviews];
     _corverImageView.frame = self.bounds;
     _playerScreenView.frame = self.bounds;
+    _handleView.frame = self.bounds;
 }
 
 - (void)setPlayer:(AVPlayer *)player {
     _player = player;
     _playerScreenView.playerLayer.player = player;
+}
+
+- (void)setHandleView:(SAClipPlayerHandleView *)handleView {
+    if (self.handleView) {
+        [self.handleView removeFromSuperview];
+        self.handleView = nil;
+    }
+    _handleView = handleView;
+    [self addSubview:handleView];
 }
 
 - (void)setCorverImageUrl:(NSString *)corverImageUrl {
