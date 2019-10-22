@@ -76,9 +76,11 @@ NSString *const kPlaybackLikelyToKeepUp = @"playbackLikelyToKeepUp";
     if ([keyPath isEqualToString:KStatus]) {
         AVPlayerItemStatus status = [change[@"new"] integerValue];
         
-        dispatch_block_cancel(self.startLoadActivityBlock);
-        if (self.stopActivityBlock) {
-            self.stopActivityBlock();
+        if (self.startLoadActivityBlock) {
+            dispatch_block_cancel(self.startLoadActivityBlock);
+            if (self.stopActivityBlock) {
+                self.stopActivityBlock();
+            }
         }
         
         switch (status) {
@@ -86,12 +88,10 @@ NSString *const kPlaybackLikelyToKeepUp = @"playbackLikelyToKeepUp";
             {
                 
                 // 开始播放
-//                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-//                    [_player play];
-//                    self.playerView.hidden = NO;
-//                });
-                [_player play];
-                self.playState = SAPlayStatePlaying;
+                if (self.playState == SAPlayStateUnKnown) { // 初始化情况下开始播放 其他情况下不要开始播放
+                    [_player play];
+                    self.playState = SAPlayStatePlaying;
+                }
             }
                 break;
             case AVPlayerItemStatusFailed:
@@ -116,6 +116,7 @@ NSString *const kPlaybackLikelyToKeepUp = @"playbackLikelyToKeepUp";
             NSLog(@"------buffer empty");
         }
     } else if ([keyPath isEqualToString:kPlaybackLikelyToKeepUp]) {
+        
         if (self.playerItem.playbackLikelyToKeepUp) {
             if (self.stopActivityBlock) {
                 self.stopActivityBlock();
