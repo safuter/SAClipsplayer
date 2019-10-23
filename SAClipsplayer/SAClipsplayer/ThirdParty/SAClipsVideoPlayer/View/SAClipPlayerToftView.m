@@ -7,10 +7,9 @@
 //
 
 #import "SAClipPlayerToftView.h"
-#import "SAClipPlayerScreenView.h"
 
 @interface SAClipPlayerToftView()
-@property (nonatomic, strong) SAClipPlayerScreenView *playerScreenView;
+
 
 @end
 
@@ -25,16 +24,21 @@
     return self;
 }
 
+- (void)dealloc {
+    NSLog(@"toft view dealloc");
+    _playerScreenView = nil;
+}
+
 - (void)setupViews {
     
     _corverImageView = [[UIImageView alloc] init];
-    _corverImageView.contentMode = UIViewContentModeScaleAspectFill;
+    _corverImageView.contentMode = UIViewContentModeScaleAspectFit;
     [self addSubview:_corverImageView];
     
     _playerScreenView = [[SAClipPlayerScreenView alloc] init];
     [self addSubview:_playerScreenView];
     
-    self.backgroundColor = [UIColor whiteColor];
+    self.backgroundColor = [UIColor blackColor];
 }
 
 - (void)layoutSubviews {
@@ -45,7 +49,6 @@
 }
 
 - (void)setPlayer:(AVPlayer *)player {
-    _player = player;
     _playerScreenView.playerLayer.player = player;
 }
 

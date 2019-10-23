@@ -22,6 +22,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, assign) CGFloat coverImgWidth;  // 视频封面宽度
 @property (nonatomic, assign) CGFloat coverImgHeight; // 视频封面高度
+
+@property (nonatomic, assign) CGFloat videoScale;
 @end
 
 NS_ASSUME_NONNULL_END

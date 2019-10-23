@@ -24,9 +24,12 @@
     return self;
 }
 
+- (void)dealloc {
+    NSLog(@"screen view dealloc");
+}
+
 - (void)setupViews {
-    self.playerLayer.videoGravity = AVLayerVideoGravityResizeAspectFill;
-//    self.backgroundColor = [UIColor redColor];
+    self.playerLayer.videoGravity = AVLayerVideoGravityResizeAspect;
 }
 
 #pragma mark - Getter

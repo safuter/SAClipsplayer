@@ -7,14 +7,26 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SAClipPlayerToftView.h"
 
 NS_ASSUME_NONNULL_BEGIN
+
+@protocol SAClipPlayerControllerDelegate <NSObject>
+
+/// 指定视频列表页视频view 用于转场动画的起始frame
+- (UIView *)sourceContainerView;
+
+@end
 
 @interface SAClipPlayerController : UIViewController
 
 @property (nonatomic, strong) NSString *url;
 @property (nonatomic, strong) NSString *corverImgUrl;
+@property (nonatomic, assign) CGFloat videoScale;
+@property (nonatomic, strong) SAClipPlayerToftView *toftView;
 
+@property (nonatomic, weak) id<SAClipPlayerControllerDelegate> delegate;
+@property (nonatomic, strong) UIView *sourceContainerView;
 
 /**
  初始化player控制器对象
@@ -24,7 +36,8 @@ NS_ASSUME_NONNULL_BEGIN
  @return player控制器对象
  */
 - (instancetype)initWithPlayUrlStr:(NSString *)playUrlStr
-                      corverUrlStr:(NSString *)corverUrlStr;
+                      corverUrlStr:(NSString *)corverUrlStr
+                        videoScale:(CGFloat)videoScale;
 
 @end
 

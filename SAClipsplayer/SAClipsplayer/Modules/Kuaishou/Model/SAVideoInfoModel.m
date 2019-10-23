@@ -10,6 +10,11 @@
 
 @implementation SAVideoInfoModel
 
-
+- (CGFloat)videoScale {
+    if (self.width > 0 && self.height > 0) {
+        return  (CGFloat)self.height / self.width;
+    }
+    return 1.0;
+}
 
 @end

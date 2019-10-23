@@ -8,38 +8,51 @@
 
 #import "SAClipPlayerController.h"
 #import "SAPlayerViewModel.h"
-#import "SAClipPlayerToftView.h"
 #import "SAClipPlayerHandleView.h"
+#import "SAModalTransitionManager.h"
 
-@interface SAClipPlayerController () <SAClipPlayerHandleViewDelegate>
+@interface SAClipPlayerController () <SAClipPlayerHandleViewDelegate,UIViewControllerTransitioningDelegate>
 @property (nonatomic, strong) SAPlayerViewModel *playerViewModel;
-@property (nonatomic, strong) SAClipPlayerToftView *toftView;
 @property (nonatomic, strong) SAClipPlayerHandleView *handleView;
+
+@property (nonatomic, strong) SAModalTransitionManager *transitionManager;
 @end
 
 @implementation SAClipPlayerController
 
-- (instancetype)initWithPlayUrlStr:(NSString *)playUrlStr corverUrlStr:(NSString *)corverUrlStr {
+- (instancetype)initWithPlayUrlStr:(NSString *)playUrlStr
+                      corverUrlStr:(NSString *)corverUrlStr
+                        videoScale:(CGFloat)videoScale {
     if (self = [super init]) {
         self.url = playUrlStr;
         self.corverImgUrl = corverUrlStr;
+        self.videoScale = videoScale;
+        self.modalPresentationStyle = UIModalPresentationCustom;
+        self.transitionManager = [[SAModalTransitionManager alloc] init];
+        self.transitionManager.playerController = self;
+        self.transitioningDelegate = self;
     }
     return self;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
-    _playerViewModel = [[SAPlayerViewModel alloc] initWithUrlStr:self.url];
+    
+    self.view.backgroundColor = [UIColor blackColor];
+    
+    NSString *urlStr = [self.url copy];
+    _playerViewModel = [[SAPlayerViewModel alloc] initWithUrlStr:urlStr];
     
     _toftView = [[SAClipPlayerToftView alloc] init];
-    _toftView.player = _playerViewModel.player;
+    [_toftView setPlayer:_playerViewModel.player];
     _toftView.corverImageUrl = _corverImgUrl;
+    _toftView.frame = CGRectMake(0, 0, ScreenWidth, ScreenHeight);
     [self.view addSubview:_toftView];
     
     _handleView = [[SAClipPlayerHandleView alloc] init];
     _handleView.delegate = self;
     _toftView.handleView = _handleView;
+    
     
     UIButton *back = [UIButton buttonWithType:UIButtonTypeCustom];
     [back setTitle:@"返回" forState:UIControlStateNormal];
@@ -51,8 +64,15 @@
     
     weak_block_self;
     _playerViewModel.playStateChanged = ^(SAPlayState playState) {
+        NSLog(@"block 调用");
         weakSelf.handleView.playState = playState;
+        
     };
+}
+
+- (void)dealloc {
+    NSLog(@"vc dealloc");
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (void)setupNotification {
@@ -74,9 +94,19 @@
 
 - (void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
-    _toftView.frame = CGRectMake(0, 0, ScreenWidth, ScreenHeight);
 }
 
+#pragma mark - System Delegate Methods
+#pragma mark - UIViewControllerTransitioningDelegate
+- (id<UIViewControllerAnimatedTransitioning>)animationControllerForPresentedController:(UIViewController *)presented presentingController:(UIViewController *)presenting sourceController:(UIViewController *)source {
+    return self.transitionManager;
+}
+
+- (id<UIViewControllerAnimatedTransitioning>)animationControllerForDismissedController:(UIViewController *)dismissed {
+    return self.transitionManager;
+}
+
+#pragma mark - Custom Delegate Methods
 #pragma mark - SAClipPlayerHandleViewDelegate
 - (void)playOrPauseAction:(UIButton *)sender {
     if (sender.isSelected) { // playing
@@ -85,5 +115,7 @@
         [self.playerViewModel play];
     }
 }
+
+#pragma mark - Getter
 
 @end

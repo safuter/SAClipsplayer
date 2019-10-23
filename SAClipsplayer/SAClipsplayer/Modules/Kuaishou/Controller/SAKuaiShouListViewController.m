@@ -13,7 +13,12 @@
 
 NSString * const KuaiShouCollectionListCellID = @"KuaiShouCollectionListCellID";
 
-@interface SAKuaiShouListViewController () <UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
+@interface SAKuaiShouListViewController () <
+                                            UICollectionViewDelegate,
+                                            UICollectionViewDataSource,
+                                            UICollectionViewDelegateFlowLayout,
+                                            SAClipPlayerControllerDelegate
+                                            >
 
 // 数据源
 @property (nonatomic, strong) NSMutableArray *dataList;
@@ -50,11 +55,20 @@ NSString * const KuaiShouCollectionListCellID = @"KuaiShouCollectionListCellID";
 #pragma mark - UICollectionViewDelegate
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     SAVideoFeedModel *model = [self.dataList objectAtIndex:indexPath.row];
-    
-    SAClipPlayerController *playerVC = [[SAClipPlayerController alloc] initWithPlayUrlStr:model.video.videourl corverUrlStr:model.video.firstpic];
+
+    SAClipPlayerController *playerVC = [[SAClipPlayerController alloc] initWithPlayUrlStr:model.video.videourl corverUrlStr:model.video.firstpic videoScale:model.video.videoScale];
+    UICollectionViewCell *cell = [collectionView cellForItemAtIndexPath:indexPath];
+    playerVC.sourceContainerView = cell.contentView;
     [self presentViewController:playerVC animated:YES completion:^{
         
     }];
+}
+
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
+    SAVideoFeedModel *model = [self.dataList objectAtIndex:indexPath.row];
+    CGFloat itemSpace = 3; // item间距
+    CGFloat itemW = (ScreenWidth - itemSpace) * 0.5;
+    return CGSizeMake(itemW, itemW * model.video.videoScale);
 }
 
 #pragma mark - UICollectionViewDataSource

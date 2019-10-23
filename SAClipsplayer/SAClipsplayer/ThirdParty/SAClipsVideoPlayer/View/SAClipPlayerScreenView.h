@@ -12,7 +12,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface SAClipPlayerScreenView : UIView
-@property (nonatomic, strong) AVPlayerLayer *playerLayer;
+@property (nonatomic, readonly, strong) AVPlayerLayer *playerLayer;
 @end
 
 NS_ASSUME_NONNULL_END
