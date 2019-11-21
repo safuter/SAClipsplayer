@@ -132,12 +132,15 @@
     // 修改动画类型 侧滑返回时候用侧滑返回的动画
     if (gestureRecognizer.state == UIGestureRecognizerStateBegan) {
 //        self.transitionManager.animationType = SAVideoFeedTransitionTypeSlide;
+
         self.view.backgroundColor = [UIColor clearColor];
+
         frameOfOriginalOfImageView = [self.toftView convertRect:self.toftView.bounds toView:[SAUtility getCurrentWindow]];
         frameOfOriginalOfVideoViewFrame = self.toftView.frame;
         startScaleWidthInAnimationView = (point.x - frameOfOriginalOfImageView.origin.x) / frameOfOriginalOfImageView.size.width;
         startScaleheightInAnimationView = (point.y - frameOfOriginalOfImageView.origin.y) / frameOfOriginalOfImageView.size.height;
         
+
         lastPointY = point.y;
         lastPointX = point.x;
         
@@ -150,7 +153,8 @@
 
 - (void)dragAnimation_performAnimationViewWithPoint:(CGPoint)point container:(UIView *)container {
     
-    CGFloat maxHeight = frameOfOriginalOfVideoViewFrame.size.height;
+
+        CGFloat maxHeight = frameOfOriginalOfVideoViewFrame.size.height;
         if (maxHeight <= 0) return;
         
         CGFloat offsetX = point.x - lastPointX;
@@ -161,6 +165,7 @@
 //        }
         totalOffsetXOfAnimateVideoView += offsetX;
         totalOffsetYOfAnimateVideoView += offsetY;
+
         NSLog(@"---------totalOffsetYOfAnimateVideoView:%f", totalOffsetYOfAnimateVideoView);
     NSLog(@"---------totalOffsetYOfAnimateVideoViewSize:%f:",totalOffsetYOfAnimateVideoView / maxHeight);
         //缩放比例
