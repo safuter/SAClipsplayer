@@ -39,6 +39,8 @@ NS_ASSUME_NONNULL_BEGIN
                       corverUrlStr:(NSString *)corverUrlStr
                         videoScale:(CGFloat)videoScale;
 
+- (void)setupPlayerViewModel;
+
 @end
 
 NS_ASSUME_NONNULL_END

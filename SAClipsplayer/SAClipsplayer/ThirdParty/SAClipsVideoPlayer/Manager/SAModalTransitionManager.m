@@ -57,6 +57,7 @@ static const CGFloat KTransitionDuration = 0.3;
             [toView addSubview:view];
             [toView sendSubviewToBack:view];
             [transitionContext completeTransition:YES];
+            [_playerController setupPlayerViewModel];
         }];
     } else {
         CGRect toRect = [self getFrameInWindowWithView:self.playerController.sourceContainerView];

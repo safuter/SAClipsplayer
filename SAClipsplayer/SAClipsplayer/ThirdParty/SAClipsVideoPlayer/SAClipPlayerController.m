@@ -40,34 +40,10 @@
     
     self.view.backgroundColor = [UIColor blackColor];
     
-    NSString *urlStr = [self.url copy];
-    _playerViewModel = [[SAPlayerViewModel alloc] initWithUrlStr:urlStr];
-    
     _toftView = [[SAClipPlayerToftView alloc] init];
-    [_toftView setPlayer:_playerViewModel.player];
     _toftView.corverImageUrl = _corverImgUrl;
     _toftView.frame = CGRectMake(0, 0, ScreenWidth, ScreenHeight);
     [self.view addSubview:_toftView];
-    
-    _handleView = [[SAClipPlayerHandleView alloc] init];
-    _handleView.delegate = self;
-    _toftView.handleView = _handleView;
-    
-    
-    UIButton *back = [UIButton buttonWithType:UIButtonTypeCustom];
-    [back setTitle:@"返回" forState:UIControlStateNormal];
-    back.frame = CGRectMake(20, 80, 40, 40);
-    [back addTarget:self action:@selector(back) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:back];
-    
-    [self setupNotification];
-    
-    weak_block_self;
-    _playerViewModel.playStateChanged = ^(SAPlayState playState) {
-        NSLog(@"block 调用");
-        weakSelf.handleView.playState = playState;
-        
-    };
 }
 
 - (void)dealloc {
@@ -92,8 +68,31 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-- (void)viewDidLayoutSubviews {
-    [super viewDidLayoutSubviews];
+#pragma mark - Private
+- (void)setupPlayerViewModel {
+    NSString *urlStr = [self.url copy];
+    _playerViewModel = [[SAPlayerViewModel alloc] initWithUrlStr:urlStr];
+    
+    [_toftView setPlayer:_playerViewModel.player];
+    
+    _handleView = [[SAClipPlayerHandleView alloc] init];
+    _handleView.delegate = self;
+    _toftView.handleView = _handleView;
+    
+    weak_block_self;
+    _playerViewModel.playStateChanged = ^(SAPlayState playState) {
+        NSLog(@"block 调用");
+        weakSelf.handleView.playState = playState;
+        
+    };
+    
+    UIButton *back = [UIButton buttonWithType:UIButtonTypeCustom];
+    [back setTitle:@"返回" forState:UIControlStateNormal];
+    back.frame = CGRectMake(20, 80, 40, 40);
+    [back addTarget:self action:@selector(back) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:back];
+   
+    [self setupNotification];
 }
 
 #pragma mark - System Delegate Methods
