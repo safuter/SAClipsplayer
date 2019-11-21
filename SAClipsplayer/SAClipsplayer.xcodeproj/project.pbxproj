@@ -28,6 +28,9 @@
 		01129DA7235C3EC200473D1F /* SAClipLoadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 01129DA6235C3EC200473D1F /* SAClipLoadingView.m */; };
 		014E1AF7235EE54A00E5A056 /* Toast+UIView.m in Sources */ = {isa = PBXBuildFile; fileRef = 014E1AF5235EE54A00E5A056 /* Toast+UIView.m */; };
 		014E1AFA235EFA5600E5A056 /* SAModalTransitionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 014E1AF9235EFA5600E5A056 /* SAModalTransitionManager.m */; };
+		01A0994D23867C09008F9237 /* SAInteractiveManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 01A0994C23867C09008F9237 /* SAInteractiveManager.m */; };
+		01A0995023868A95008F9237 /* UIView+SAFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = 01A0994F23868A95008F9237 /* UIView+SAFrame.m */; };
+		01A099532386AB1F008F9237 /* SAUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = 01A099522386AB1F008F9237 /* SAUtility.m */; };
 		2F1391FEFCB6FA5AB0F819E7 /* libPods-SAClipsplayer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CDEC7908C24E15F53A67D761 /* libPods-SAClipsplayer.a */; };
 /* End PBXBuildFile section */
 
@@ -73,6 +76,12 @@
 		014E1AF6235EE54A00E5A056 /* Toast+UIView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Toast+UIView.h"; sourceTree = "<group>"; };
 		014E1AF8235EFA5600E5A056 /* SAModalTransitionManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SAModalTransitionManager.h; sourceTree = "<group>"; };
 		014E1AF9235EFA5600E5A056 /* SAModalTransitionManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SAModalTransitionManager.m; sourceTree = "<group>"; };
+		01A0994B23867C09008F9237 /* SAInteractiveManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SAInteractiveManager.h; sourceTree = "<group>"; };
+		01A0994C23867C09008F9237 /* SAInteractiveManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SAInteractiveManager.m; sourceTree = "<group>"; };
+		01A0994E23868A95008F9237 /* UIView+SAFrame.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIView+SAFrame.h"; sourceTree = "<group>"; };
+		01A0994F23868A95008F9237 /* UIView+SAFrame.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIView+SAFrame.m"; sourceTree = "<group>"; };
+		01A099512386AB1F008F9237 /* SAUtility.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SAUtility.h; sourceTree = "<group>"; };
+		01A099522386AB1F008F9237 /* SAUtility.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SAUtility.m; sourceTree = "<group>"; };
 		4EA1FA0F6B775E5BC33D3974 /* Pods-SAClipsplayer.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SAClipsplayer.release.xcconfig"; path = "Pods/Target Support Files/Pods-SAClipsplayer/Pods-SAClipsplayer.release.xcconfig"; sourceTree = "<group>"; };
 		6A1AF2B57E123FF1EE825A00 /* Pods-SAClipsplayer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SAClipsplayer.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SAClipsplayer/Pods-SAClipsplayer.debug.xcconfig"; sourceTree = "<group>"; };
 		CDEC7908C24E15F53A67D761 /* libPods-SAClipsplayer.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SAClipsplayer.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -232,6 +241,10 @@
 			children = (
 				01129D81235861E900473D1F /* PrefixHeader.pch */,
 				01129D82235876B500473D1F /* DefineHeader.h */,
+				01A0994E23868A95008F9237 /* UIView+SAFrame.h */,
+				01A0994F23868A95008F9237 /* UIView+SAFrame.m */,
+				01A099512386AB1F008F9237 /* SAUtility.h */,
+				01A099522386AB1F008F9237 /* SAUtility.m */,
 			);
 			path = Utility;
 			sourceTree = "<group>";
@@ -257,6 +270,8 @@
 			children = (
 				014E1AF8235EFA5600E5A056 /* SAModalTransitionManager.h */,
 				014E1AF9235EFA5600E5A056 /* SAModalTransitionManager.m */,
+				01A0994B23867C09008F9237 /* SAInteractiveManager.h */,
+				01A0994C23867C09008F9237 /* SAInteractiveManager.m */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -400,9 +415,11 @@
 			files = (
 				01129D6F2358594800473D1F /* SARootViewController.m in Sources */,
 				01129D7F235860CE00473D1F /* SABaseViewController.m in Sources */,
+				01A099532386AB1F008F9237 /* SAUtility.m in Sources */,
 				01129D7B23585FA200473D1F /* UIColor+Theme.m in Sources */,
 				014E1AFA235EFA5600E5A056 /* SAModalTransitionManager.m in Sources */,
 				01129D902358A94300473D1F /* SAVideoInfoModel.m in Sources */,
+				01A0995023868A95008F9237 /* UIView+SAFrame.m in Sources */,
 				01129D852358772600473D1F /* SAKuaiShouListViewController.m in Sources */,
 				01129DA4235C2E8200473D1F /* SAClipPlayerHandleView.m in Sources */,
 				01129D8823587A3800473D1F /* SAKuaishouListCollectionViewCell.m in Sources */,
@@ -412,6 +429,7 @@
 				01129D9B2359ACE500473D1F /* SAClipPlayerScreenView.m in Sources */,
 				01129DA7235C3EC200473D1F /* SAClipLoadingView.m in Sources */,
 				01129D932359710100473D1F /* SAClipPlayerController.m in Sources */,
+				01A0994D23867C09008F9237 /* SAInteractiveManager.m in Sources */,
 				01129D59235854D000473D1F /* AppDelegate.m in Sources */,
 				01129D9E2359BC2200473D1F /* SAPlayerViewModel.m in Sources */,
 				01129DA1235C1ADE00473D1F /* SAClipPlayerToftView.m in Sources */,

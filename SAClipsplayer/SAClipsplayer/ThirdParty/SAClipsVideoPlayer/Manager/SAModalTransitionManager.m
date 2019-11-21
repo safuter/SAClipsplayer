@@ -60,16 +60,43 @@ static const CGFloat KTransitionDuration = 0.3;
             [_playerController setupPlayerViewModel];
         }];
     } else {
-        CGRect toRect = [self getFrameInWindowWithView:self.playerController.sourceContainerView];
-        SAClipPlayerToftView *toftView = self.playerController.toftView;
-        toftView.playerScreenView.hidden = YES;
-        fromView.backgroundColor = [UIColor clearColor];
-        
-        [UIView animateWithDuration:KTransitionDuration delay:0.0 options:UIViewAnimationOptionLayoutSubviews animations:^{
-            toftView.frame = toRect;
-        } completion:^(BOOL finished) {
-            [transitionContext completeTransition:YES];
-        }];
+        if (_animationType == SAVideoFeedTransitionTypeMove) {
+            CGRect toRect = [self getFrameInWindowWithView:self.playerController.sourceContainerView];
+                    SAClipPlayerToftView *toftView = self.playerController.toftView;
+//                    toftView.playerScreenView.hidden = YES;
+                    fromView.backgroundColor = [UIColor clearColor];
+
+            //        [containerView addSubview:(nonnull UIView *)]
+//
+            
+                    [UIView animateWithDuration:[self transitionDuration:transitionContext] delay:0.0 options:UIViewAnimationOptionLayoutSubviews animations:^{
+                        toftView.frame = toRect;
+                    } completion:^(BOOL finished) {
+                        [transitionContext completeTransition:!transitionContext.transitionWasCancelled];
+                    }];
+            
+        } else if(_animationType == SAVideoFeedTransitionTypeSlide) {
+            // 添加右滑返回的遮罩
+            UIView *maskView = [[UIView alloc] init];
+            maskView.frame = toView.bounds;
+            maskView.backgroundColor = [UIColor blackColor];
+            [toView addSubview:maskView];
+            maskView.alpha = 0.4;
+            
+            [UIView animateWithDuration:[self transitionDuration:transitionContext] animations:^{
+                fromView.x += ScreenWidth;
+                maskView.alpha = 0.0;
+            } completion:^(BOOL finished) {
+                // 可能取消动画 所以最终参数要判断
+//                [transitionContext completeTransition:YES];
+                [transitionContext completeTransition:!transitionContext.transitionWasCancelled];
+                [maskView removeFromSuperview];
+                // 页面消失
+                if (!transitionContext.transitionWasCancelled) {
+                    [[NSNotificationCenter defaultCenter] postNotificationName:@"ViewControllerDismissed" object:nil userInfo:nil];
+                }
+            }];
+        }
     }
 }
 
@@ -91,6 +118,5 @@ static const CGFloat KTransitionDuration = 0.3;
     }
     return window;
 }
-
 
 @end
