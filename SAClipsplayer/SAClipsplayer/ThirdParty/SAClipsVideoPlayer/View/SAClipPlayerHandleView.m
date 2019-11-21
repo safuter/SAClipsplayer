@@ -41,11 +41,15 @@
 
 #pragma mark - Public
 - (void)startActivity {
-    [_loadingView startActivity];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [_loadingView startActivity];
+    });
 }
 
 - (void)stopActivity {
-    [_loadingView stopActivity];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [_loadingView stopActivity];
+    });
 }
 
 #pragma mark - Private
