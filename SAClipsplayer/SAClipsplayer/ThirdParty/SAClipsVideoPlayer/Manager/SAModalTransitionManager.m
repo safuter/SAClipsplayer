@@ -63,11 +63,6 @@ static const CGFloat KTransitionDuration = 0.3;
         if (_animationType == SAVideoFeedTransitionTypeMove) {
             CGRect toRect = [self getFrameInWindowWithView:self.playerController.sourceContainerView];
                     SAClipPlayerToftView *toftView = self.playerController.toftView;
-<<<<<<< HEAD
-//                    toftView.playerScreenView.hidden = YES;
-=======
-                    toftView.playerScreenView.hidden = YES;
->>>>>>> d85adde09525f5b055fd0d8815455200edf50267
                     fromView.backgroundColor = [UIColor clearColor];
 
             //        [containerView addSubview:(nonnull UIView *)]
@@ -95,10 +90,6 @@ static const CGFloat KTransitionDuration = 0.3;
 //                [transitionContext completeTransition:YES];
                 [transitionContext completeTransition:!transitionContext.transitionWasCancelled];
                 [maskView removeFromSuperview];
-                // 页面消失
-                if (!transitionContext.transitionWasCancelled) {
-                    [[NSNotificationCenter defaultCenter] postNotificationName:@"ViewControllerDismissed" object:nil userInfo:nil];
-                }
             }];
         }
     }

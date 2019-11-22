@@ -30,6 +30,7 @@
     CGFloat lastPointX; //上一次触摸点x值
     CGFloat lastPointY; //上一次触摸点y值
     CGRect frameOfOriginalOfVideoViewFrame;
+    CGFloat dragScale; // 拖动中比例
 }
 
 - (instancetype)initWithPlayUrlStr:(NSString *)playUrlStr
@@ -118,67 +119,97 @@
 #pragma mark - Action
 - (void)panGestureAction:(UIPanGestureRecognizer *)gestureRecognizer {
     CGPoint point = [gestureRecognizer locationInView:self.view];
-    CGFloat progress = [gestureRecognizer translationInView:self.view].y / (self.view.bounds.size.height * 1.0);
-    progress = MIN(1.0, MAX(0.0, progress));
-    NSLog(@"------ %f", progress);
-    
+
     if (gestureRecognizer.state == UIGestureRecognizerStateChanged) {
-        [self dragAnimation_performAnimationViewWithPoint:point container:self.view];
+        if (_transitionManager.animationType == SAVideoFeedTransitionTypeMove) {
+                        CGFloat progress = [gestureRecognizer translationInView:self.view].y / (self.view.bounds.size.height * 1.0);
+            progress = MIN(1.0, MAX(0.0, progress));
+            NSLog(@"------ %f", progress);
+            
+            if (gestureRecognizer.state == UIGestureRecognizerStateChanged) {
+                [self dragWithPoint:point container:self.view];
+            }
+        } else {
+            [self.interactiveManager panGestureAction:gestureRecognizer];
+        }
     }
+
+
     
 //    return;
-//    [self.interactiveManager panGestureAction:gestureRecognizer];
+//
     
     // 修改动画类型 侧滑返回时候用侧滑返回的动画
     if (gestureRecognizer.state == UIGestureRecognizerStateBegan) {
 //        self.transitionManager.animationType = SAVideoFeedTransitionTypeSlide;
-
-        self.view.backgroundColor = [UIColor clearColor];
-
-        frameOfOriginalOfImageView = [self.toftView convertRect:self.toftView.bounds toView:[SAUtility getCurrentWindow]];
-        frameOfOriginalOfVideoViewFrame = self.toftView.frame;
-        startScaleWidthInAnimationView = (point.x - frameOfOriginalOfImageView.origin.x) / frameOfOriginalOfImageView.size.width;
-        startScaleheightInAnimationView = (point.y - frameOfOriginalOfImageView.origin.y) / frameOfOriginalOfImageView.size.height;
         
+        
+        CGPoint velocityPoint = [gestureRecognizer velocityInView:self.view];
+        if (velocityPoint.x > velocityPoint.y) {
+            _transitionManager.animationType = SAVideoFeedTransitionTypeSlide;
+                        [self.interactiveManager panGestureAction:gestureRecognizer];
+        } else {
+                        _transitionManager.animationType = SAVideoFeedTransitionTypeMove;
+            
+            self.view.backgroundColor = [UIColor clearColor];
 
-        lastPointY = point.y;
-        lastPointX = point.x;
+            frameOfOriginalOfImageView = [self.toftView convertRect:self.toftView.bounds toView:[SAUtility getCurrentWindow]];
+            frameOfOriginalOfVideoViewFrame = self.toftView.frame;
+            startScaleWidthInAnimationView = (point.x - frameOfOriginalOfImageView.origin.x) / frameOfOriginalOfImageView.size.width;
+            startScaleheightInAnimationView = (point.y - frameOfOriginalOfImageView.origin.y) / frameOfOriginalOfImageView.size.height;
+            
+
+            lastPointY = point.y;
+            lastPointX = point.x;
+        }
         
     } else if (gestureRecognizer.state == UIGestureRecognizerStateEnded) {
-//        self.view.backgroundColor = [UIColor blackColor];
-        [self dismissViewControllerAnimated:YES completion:nil];
-        self.transitionManager.animationType = SAVideoFeedTransitionTypeMove;
+        if (_transitionManager.animationType == SAVideoFeedTransitionTypeMove) { // 下拉返回
+            if (dragScale >= 0.6) { // 恢复
+                [UIView animateWithDuration:0.2 delay:0.03 options:UIViewAnimationOptionCurveEaseInOut | UIViewAnimationOptionLayoutSubviews animations:^{
+                    self.toftView.frame = frameOfOriginalOfVideoViewFrame;
+                    self.view.backgroundColor = [UIColor blackColor];
+                } completion:^(BOOL finished) {
+                    totalOffsetXOfAnimateVideoView = 0.0;
+                    totalOffsetYOfAnimateVideoView = 0.0;
+                    frameOfOriginalOfVideoViewFrame = CGRectZero;
+                }];
+                return;
+            }
+            [self dismissViewControllerAnimated:YES completion:nil];
+        } else { // 右滑返回
+            [self.interactiveManager panGestureAction:gestureRecognizer];
+            self.transitionManager.animationType = SAVideoFeedTransitionTypeMove;
+        }
     }
 }
 
-- (void)dragAnimation_performAnimationViewWithPoint:(CGPoint)point container:(UIView *)container {
+- (void)dragWithPoint:(CGPoint)point container:(UIView *)container {
     
 
-        CGFloat maxHeight = frameOfOriginalOfVideoViewFrame.size.height;
-        if (maxHeight <= 0) return;
-        
-        CGFloat offsetX = point.x - lastPointX;
-        CGFloat offsetY = point.y - lastPointY;
-//        if (animateVideoViewIsStart) {
-//            offsetX = offsetY = 0;
-//            animateVideoViewIsStart = NO;
-//        }
-        totalOffsetXOfAnimateVideoView += offsetX;
-        totalOffsetYOfAnimateVideoView += offsetY;
+    CGFloat maxHeight = frameOfOriginalOfVideoViewFrame.size.height;
+    if (maxHeight <= 0) return;
+    
+    CGFloat offsetX = point.x - lastPointX;
+    CGFloat offsetY = point.y - lastPointY;
 
-        NSLog(@"---------totalOffsetYOfAnimateVideoView:%f", totalOffsetYOfAnimateVideoView);
-    NSLog(@"---------totalOffsetYOfAnimateVideoViewSize:%f:",totalOffsetYOfAnimateVideoView / maxHeight);
-        //缩放比例
-        CGFloat scale = (1 - totalOffsetYOfAnimateVideoView / maxHeight);
-        if (scale > 1) scale = 1;
-        if (scale < 0) scale = 0;
-        if (scale < 0.5) {
-            scale = 0.5;
-        }
-        
-        NSLog(@"---------scale = %f", scale);
-        CGFloat height = (frameOfOriginalOfVideoViewFrame.size.height)* scale;
-    //    CGFloat width = frameOfOriginalOfVideoViewFrame.size.width * scale;
+    totalOffsetXOfAnimateVideoView += offsetX;
+    totalOffsetYOfAnimateVideoView += offsetY;
+
+    NSLog(@"---------totalOffsetYOfAnimateVideoView = %f", totalOffsetYOfAnimateVideoView);
+    //缩放比例
+    CGFloat scale = (1 - totalOffsetYOfAnimateVideoView / maxHeight);
+    if (scale > 1) scale = 1;
+    if (scale < 0) scale = 0;
+    
+    if (scale < 0.5) {
+        scale = 0.5;
+    }
+    dragScale = scale;
+    
+    NSLog(@"---------scale = %f", scale);
+    CGFloat height = (frameOfOriginalOfVideoViewFrame.size.height)* scale;
+
     CGFloat width = height / _videoScale;
     
     self.toftView.frame = CGRectMake(point.x - width * startScaleWidthInAnimationView, point.y - height * startScaleheightInAnimationView, width, height);
@@ -201,7 +232,7 @@
 }
 
 - (id<UIViewControllerInteractiveTransitioning>)interactionControllerForDismissal:(id<UIViewControllerAnimatedTransitioning>)animator {
-    // 如果直接返回 interactive 会与系统的 dismiss 动画有冲突，导致点击 button 无法 dismiss 界面。
+
     // 同时如果返回  interactiveAnimator，那么 animationControllerForDismissedController: 则必须实现
     return self.interactiveManager.isInteractive ? self.interactiveManager : nil;
 }
